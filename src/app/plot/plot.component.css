@@ -1,3 +1,7 @@
+plot {
+  background: gray;
+}
 chart {
   display: block;
+/*  padding: 10px;*/
 }

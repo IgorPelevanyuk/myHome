@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+import { GridsterModule } from 'angular-gridster2';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -26,7 +27,8 @@ export function highchartsFactory() {
   imports: [
     BrowserModule,
     HttpClientModule,
-    ChartModule
+    ChartModule,
+    GridsterModule
   ],
   providers: [
     RestService,

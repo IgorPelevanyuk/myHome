@@ -26,6 +26,7 @@ export class PlotComponent implements OnInit {
   }
 
   initChart(values): void {
+    console.log('Init chart');
     this.options = {
       chart: { zoomType: 'x' },
       title : { text : this.table },

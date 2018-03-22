@@ -1,12 +1,11 @@
 <b>Main component</b>
-<li *ngFor="let table of tables">
-	<i>Table:</i>
-	{{table}}
-	<app-value table="{{table}}"></app-value>
-    <!-- <a routerLink="/detail/{{hero.id}}">
-      <span class="badge">{{hero.id}}</span> {{hero.name}}
-    </a>
-    <button class="delete" title="delete hero"
-    (click)="delete(hero)">x</button> -->
-  <app-plot table="{{table}}"></app-plot>
-</li>
+<gridster [options]="options">
+  <gridster-item [item]="table" *ngFor="let table of dashboard">
+    <i>Table:</i>
+    {{table.name}}
+    <br>
+    <app-value table="{{table.table_name}}"></app-value>
+    <br>
+    <app-plot table="{{table.table_name}}"></app-plot>
+  </gridster-item>
+</gridster>
