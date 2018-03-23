@@ -41,11 +41,10 @@ export class MainComponent implements OnInit {
       fixedColWidth: 250, // fixed col width for gridType: 'fixed'
       fixedRowHeight: 250,
       margin: 10,
-      draggable: { enabled: true },
     };
     this.dashboard = [
-      {cols: 1, rows: 1, y: 0, x: 0, table_name: "01_01"},
-      {cols: 1, rows: 1, y: 0, x: 1, table_name: "01_02"}
+      {cols: 1, rows: 1, y: 0, x: 0, table_name: "01_01", type: "plot"},
+      {cols: 1, rows: 1, y: 0, x: 1, table_name: "01_02", type: "plot"},
     ];
   }
 

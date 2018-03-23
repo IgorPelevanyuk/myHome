@@ -26,6 +26,7 @@ export class PlotComponent implements OnInit {
   }
 
   initChart(values): void {
+    this.values = values;
     console.log('Init chart');
     this.options = {
       chart: { zoomType: 'x' },
@@ -50,7 +51,6 @@ export class PlotComponent implements OnInit {
 
   getValues() {
     this.restService.getTableData(this.table).subscribe(
-      //values => this.values = values,
       values => this.initChart(values)
     );
   }

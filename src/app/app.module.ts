@@ -17,6 +17,11 @@ export function highchartsFactory() {
   return require('highcharts');
 }
 
+const Highcharts = require('highcharts');
+Highcharts.setOptions({ global: {
+  useUTC: false
+} });
+
 @NgModule({
   declarations: [
     AppComponent,
