@@ -1,0 +1,13 @@
+[Unit]
+Description=Radio Listner
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi
+ExecStart=/opt/radio_listner.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=RPI Reporter
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi
+ExecStart=/opt/rpi_reporter.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
