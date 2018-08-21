@@ -64,7 +64,7 @@ while True:
         mem_integral += psutil.virtual_memory().percent
         checks += 1
         time_elapsed += SLEEP_TIME
-        logger.debug('Temp: ' + str(temp_integral))
+        # logger.debug('Temp: ' + str(temp_integral))
     except Exception, e:
         logger.error('ERROR')
         logger.error(str(e))
