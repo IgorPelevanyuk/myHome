@@ -32,7 +32,7 @@ while True:
         data = ""
 
         raw_data = ser.readline()
-        logger.debug(str(raw_data))
+        # logger.debug(str(raw_data))
         temp_time = time.time()
         for i in range(0, len(raw_data)):
             if raw_data[i] in ALLOWED_CHARS:
