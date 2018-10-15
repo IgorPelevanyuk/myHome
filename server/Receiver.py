@@ -1,12 +1,24 @@
+#!/usr/bin/python
+
 import datetime
 import json
 import sys
 import time
 import zmq
-
-
 import Schemas
 import DB
+import logging
+
+LOG_LEVEL = logging.DEBUG
+
+logger = logging.getLogger('ZMQ_listner')
+logger.setLevel(LOG_LEVEL)
+fh = logging.FileHandler('/var/log/zmq_listner.log')
+fh.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+
 
 ALLOWED_SYMBOLS = "0123456789"
 
@@ -33,14 +45,14 @@ while True:
         zmq_packet = json.loads(s)
     except Exception, e:
         if zmq_packet:
-            print 'Packet came: ', zmq_packet
-        print 'ERROR: JSON load problem'
-        print 'Error_text: ', e
-        print 'Message: ', s
+            logger.error('Packet came: ' + str(zmq_packet))
+        logger.error('ERROR: JSON load problem')
+        logger.error('Error_text: ' + str(e))
+        logger.error('Message: ' + str(s))
         continue
         
 
-    print zmq_packet
+    logger.info(zmq_packet)
     if len(zmq_packet['data']) < 4:
         continue
     sensor_id = zmq_packet['data'][:2]
@@ -48,15 +60,15 @@ while True:
     sensor_data = zmq_packet['data'][4:]
     sensor_value = get_value(sensor_type, sensor_data)
     if not sensor_value:
-        print 'Value is not good'
-        print sensor_value, repr(sensor_value)
+        logger.error('Value is not good')
+        logger.error(str(sensor_value) + " " + repr(sensor_value))
     sensor_time = datetime.datetime.utcfromtimestamp(zmq_packet['time'])
     if sensor_value:
         try:
             db_handler.writeValue(sensor_id, sensor_type, sensor_value, sensor_time)
         except Exception, e:
-            print 'ERROR: DB insert problem'
-            print 'Error_text: ', e
+            logger.error('ERROR: DB insert problem')
+            logger.error('Error_text: ' + str(e))
             
             
 

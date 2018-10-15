@@ -1,0 +1,13 @@
+[Unit]
+Description=ZeroMQ receiver
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/server
+ExecStart=/opt/server/Receiver.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

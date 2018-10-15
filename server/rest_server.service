@@ -1,0 +1,13 @@
+[Unit]
+Description=REST Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/server
+ExecStart=/opt/server/Server.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import DB
 from Schemas import types as TYPES
 
@@ -5,6 +7,17 @@ import datetime
 import telepot
 import pytz
 from pprint import pprint as pp
+import logging
+
+LOG_LEVEL = logging.DEBUG
+
+logger = logging.getLogger('Telegram reporter')
+logger.setLevel(LOG_LEVEL)
+fh = logging.FileHandler('/var/log/telegram_reporter.log')
+fh.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
 def get_UTC_now():
     return datetime.datetime.utcnow().replace(tzinfo=pytz.timezone('Europe/Moscow'))
@@ -33,14 +46,14 @@ def get_data(table_name, delta=24):
 token = "612727621:AAE3UH9w_70cAq9YKFCJr7_L2edjRwja5CY"
 
 TelegramBot = telepot.Bot(token)
-print TelegramBot.getMe()
+logger.info(str(TelegramBot.getMe()))
 db_handler = DB.DBHandler()
 for table in db_handler.get_table_names():
     data = get_data(table, delta=1)
     type_id = table.split('_')[1]
     if len(data) != 0:
         last_val = max(data, key=lambda x: x[0])
-        pp(TYPES[type_id]['name'] + ": " + str(last_val[1]))
+        logger.info(TYPES[type_id]['name'] + ": " + str(last_val[1]))
  
     
 TelegramBot.sendMessage(404763289, str(db_handler.get_table_names()))

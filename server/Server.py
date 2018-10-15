@@ -1,9 +1,23 @@
+#!/usr/bin/python
+
 import DB
 import pytz
 import datetime
 from datetime import timedelta
 from flask import Flask, jsonify
 from flask_compress import Compress
+
+import logging
+
+LOG_LEVEL = logging.DEBUG
+
+logger = logging.getLogger('REST_Server')
+logger.setLevel(LOG_LEVEL)
+fh = logging.FileHandler('/var/log/rest_server.log')
+fh.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
 
 app = Flask(__name__)
@@ -31,12 +45,11 @@ def get_data(table, delta=24):
         result.append([data_time, temp['value']])
     return result
 
+logger.info("Initialized. Serving")
+
 db_handler = DB.DBHandler()
 table_names =  db_handler.get_table_names()
-print table_names
-# ['01_01', '01_02']
-
-get_data(db_handler.getTable('01_01'))
+logger.info(table_names)
 
 @app.route('/tables')
 def give_tables():
