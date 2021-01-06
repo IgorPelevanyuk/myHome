@@ -1,0 +1,15 @@
+[Unit]
+Description=Telegram reporter
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/server
+ExecStart=/opt/server/TelegramBot.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
